@@ -9,7 +9,10 @@ import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import javax.print.ServiceUI;
 import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,15 +26,18 @@ public class printer {
         //BufferedWriter ticket = new BufferedWriter(new FileWriter(pwd));
         //ticket.write(contentTicket);
         //ticket.close();
-        PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-        
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+        
+        PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+        PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+        PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+        PrintService serviceGui = ServiceUI.printDialog(null, 700, 200, printService, defaultService, flavor, pras);
         
         byte[] bytes = contentTicket.getBytes();
         
         Doc ticket = new SimpleDoc(bytes,flavor,null);
         
-        DocPrintJob job = defaultService.createPrintJob();
+        DocPrintJob job = serviceGui.createPrintJob();
         
         try{
             job.print(ticket, null);
