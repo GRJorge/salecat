@@ -1,12 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import salecat.printer;
 /**
  *
- * @author jorge
+ * @author axdevil
  */
 public class ticket extends javax.swing.JPanel {
 
@@ -26,20 +26,20 @@ public class ticket extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ticketContentScroll = new javax.swing.JScrollPane();
-        ticketContent = new javax.swing.JTextArea();
+        contentTicketScroll = new javax.swing.JScrollPane();
+        contentTicket = new javax.swing.JTextArea();
         save = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
+        test = new javax.swing.JButton();
 
         setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        ticketContent.setColumns(1);
-        ticketContent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        ticketContent.setLineWrap(true);
-        ticketContent.setRows(5);
-        ticketContent.setText("111111111111111111111111111111");
-        ticketContent.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        ticketContentScroll.setViewportView(ticketContent);
+        contentTicket.setColumns(1);
+        contentTicket.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        contentTicket.setLineWrap(true);
+        contentTicket.setRows(5);
+        contentTicket.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        contentTicketScroll.setViewportView(contentTicket);
 
         save.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         save.setText("Guardar");
@@ -52,42 +52,62 @@ public class ticket extends javax.swing.JPanel {
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cancel.setText("Cancelar");
 
+        test.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        test.setText("Prueba");
+        test.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(172, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ticketContentScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(contentTicketScroll)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancel)
+                        .addGap(16, 16, 16)
+                        .addComponent(test)
+                        .addGap(16, 16, 16)
+                        .addComponent(save)))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(ticketContentScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addComponent(contentTicketScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancel)
                     .addComponent(save)
-                    .addComponent(cancel))
+                    .addComponent(test))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        System.out.println(ticketContent.getText().replace("2", "6"));
+        
     }//GEN-LAST:event_saveActionPerformed
+
+    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
+        try {
+            printer.printTicket(contentTicket.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(ticket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_testActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
+    private javax.swing.JTextArea contentTicket;
+    private javax.swing.JScrollPane contentTicketScroll;
     private javax.swing.JButton save;
-    private javax.swing.JTextArea ticketContent;
-    private javax.swing.JScrollPane ticketContentScroll;
+    private javax.swing.JButton test;
     // End of variables declaration//GEN-END:variables
 }
