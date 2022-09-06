@@ -3,6 +3,7 @@ package views;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import database.user;
+import salecat.global;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -155,7 +156,8 @@ public class login extends javax.swing.JFrame {
         if(!"".equals(String.valueOf(password.getPassword()))){
             while(query.next()){
                 if(query.getString("name").isEmpty() == false){
-                    System.exit(0);
+                    this.setVisible(false);
+                    global.showJFrame(new menu(), "Menu principal");
                 }
             }    
             passwordIncorrect(true);

@@ -22,9 +22,7 @@ public class main {
             JOptionPane.showMessageDialog(null, "No se pudo cargar el tema" + e, "Error", 0);
         }
         
-        login w = new login();
-        w.setLocationRelativeTo(null);
-        w.setVisible(true);
+        global.showJFrame(new login(), "Iniciar sesión");
     }
     
 }
