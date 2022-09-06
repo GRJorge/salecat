@@ -29,13 +29,8 @@
           <Component id="title" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace pref="127" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="exit" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="entry" min="-2" pref="100" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="passwordTitle" min="-2" pref="90" max="-2" attributes="0"/>
                           <Component id="userTitle" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
@@ -45,6 +40,11 @@
                           <Component id="userCombo" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="password" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="exit" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="entry" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="127" max="32767" attributes="0"/>
