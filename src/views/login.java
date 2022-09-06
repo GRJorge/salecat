@@ -1,12 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import database.user;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author jorge
+ * @author jorge garcia
  */
 public class login extends javax.swing.JFrame {
 
@@ -15,6 +18,11 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        try {
+            fillUser(user.getName());
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -28,11 +36,11 @@ public class login extends javax.swing.JFrame {
 
         title = new javax.swing.JLabel();
         userTitle = new javax.swing.JLabel();
-        user = new javax.swing.JComboBox<>();
+        userCombo = new javax.swing.JComboBox<>();
         passwordTitle = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         entry = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(460, 245));
@@ -45,22 +53,32 @@ public class login extends javax.swing.JFrame {
         userTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userTitle.setText("Usuario:");
 
-        user.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        userCombo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         passwordTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         passwordTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         passwordTitle.setText("Constraseña:");
 
         password.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        password.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                passwordCaretUpdate(evt);
+            }
+        });
 
         entry.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         entry.setText("Entrar");
-
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        entry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                entryActionPerformed(evt);
+            }
+        });
+
+        exit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        exit.setText("Salir");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
             }
         });
 
@@ -70,21 +88,21 @@ public class login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(entry, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
+                .addContainerGap(127, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passwordTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(179, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(entry, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +111,7 @@ public class login extends javax.swing.JFrame {
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(user)
+                    .addComponent(userCombo)
                     .addComponent(userTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -102,17 +120,58 @@ public class login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(entry)
-                    .addComponent(jButton1))
+                    .addComponent(exit))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exitActionPerformed
 
+    private void entryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryActionPerformed
+        try {
+            validation(user.validatePassword(userCombo.getSelectedItem().toString(), String.valueOf(password.getPassword())));
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_entryActionPerformed
+
+    private void passwordCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passwordCaretUpdate
+        passwordIncorrect(false);
+    }//GEN-LAST:event_passwordCaretUpdate
+    
+    private void fillUser(ResultSet query) throws SQLException{
+        userCombo.removeAllItems();
+        
+        while(query.next()){
+            userCombo.addItem(query.getString("name"));
+        }
+    }
+    
+    private void validation(ResultSet query) throws SQLException{
+        if(!"".equals(String.valueOf(password.getPassword()))){
+            while(query.next()){
+                if(query.getString("name").isEmpty() == false){
+                    System.exit(0);
+                }
+            }    
+            passwordIncorrect(true);
+        }else{
+            passwordIncorrect(true);
+        }
+    }
+    
+    private void passwordIncorrect(boolean incorrect){
+        if(incorrect){
+            passwordTitle.setForeground(new Color(255,68,41));
+        }else{
+            passwordTitle.setForeground(userTitle.getForeground());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -150,11 +209,11 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton entry;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton exit;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel passwordTitle;
     private javax.swing.JLabel title;
-    private javax.swing.JComboBox<String> user;
+    private javax.swing.JComboBox<String> userCombo;
     private javax.swing.JLabel userTitle;
     // End of variables declaration//GEN-END:variables
 }

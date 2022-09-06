@@ -2,11 +2,11 @@ package salecat;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import views.menu;
+import views.login;
 
 /**
  *
- * @author axdevil
+ * @author jorge garcia
  */
 public class main {
 
@@ -17,12 +17,12 @@ public class main {
         
         try{
             UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme());
+            //UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneLightIJTheme());
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No se pudo cargar el tema" + e, "Error", 0);
         }
         
-        menu w = new menu();
-        w.setTitle("Menu principal");
+        login w = new login();
         w.setLocationRelativeTo(null);
         w.setVisible(true);
     }
