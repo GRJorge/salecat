@@ -67,6 +67,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        entry.setBackground(new java.awt.Color(41, 121, 255));
         entry.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         entry.setText("Entrar");
         entry.addActionListener(new java.awt.event.ActionListener() {

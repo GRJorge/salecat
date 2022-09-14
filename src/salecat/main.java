@@ -2,7 +2,7 @@ package salecat;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import views.login;
+import views.menu;
 
 /**
  *
@@ -22,7 +22,7 @@ public class main {
             JOptionPane.showMessageDialog(null, "No se pudo cargar el tema" + e, "Error", 0);
         }
         
-        global.showJFrame(new login(), "Iniciar sesión");
+        global.showJFrame(new menu(), "Menu principal");
     }
     
 }
