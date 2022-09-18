@@ -178,9 +178,9 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_contentComponentResized
 
     private void providerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerMousePressed
-        newProvider w = new newProvider();
+        provider w = new provider();
         
-        changeContent(w, "Nuevo proveedor", w.name);
+        changeContent(w, "Proveedores", null);
     }//GEN-LAST:event_providerMousePressed
     
     public static void changeContent(JPanel newContent, String title,JTextField focus){
@@ -247,7 +247,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel iconVisibleBtn;
     private javax.swing.JLabel newProduct;
     private javax.swing.JLabel provider;
-    private static javax.swing.JLabel titleContent;
+    public static javax.swing.JLabel titleContent;
     private javax.swing.JPanel visibleBtn;
     // End of variables declaration//GEN-END:variables
 }

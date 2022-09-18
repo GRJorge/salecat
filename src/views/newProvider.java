@@ -1,20 +1,49 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+import database.providerDB;
+
+import database.providerDB;
+import salecat.global;
 
 /**
  *
  * @author axdevil
  */
 public class newProvider extends javax.swing.JPanel {
-
+    
+    private provider w = new provider();
+    private int idProvider;
     /**
      * Creates new form newProvider
+     * 0=Create
+     * 1=Edit
      */
-    public newProvider() {
+    public newProvider(int mode, int idProvider){
         initComponents();
+        
+        this.idProvider = idProvider;
+        
+        if(mode == 1){
+            save.setText("Editar");
+            ResultSet query;
+            try {
+                query = providerDB.getProvider(idProvider);
+                while(query.next()){
+                    name.setText(query.getString("name"));
+                    appat.setText(query.getString("appat"));
+                    apmat.setText(query.getString("apmat"));
+                    business.setText(query.getString("business"));
+                    phone.setText(query.getString("phone"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(newProvider.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 
     /**
@@ -28,30 +57,22 @@ public class newProvider extends javax.swing.JPanel {
 
         nameTitle = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        countName = new javax.swing.JLabel();
         appatTitle = new javax.swing.JLabel();
         appat = new javax.swing.JTextField();
-        countAppat = new javax.swing.JLabel();
         apmatTitle = new javax.swing.JLabel();
         apmat = new javax.swing.JTextField();
-        countApmat = new javax.swing.JLabel();
         businessTitle = new javax.swing.JLabel();
-        apmat1 = new javax.swing.JTextField();
-        businessApmat = new javax.swing.JLabel();
+        business = new javax.swing.JTextField();
         phoneTitle = new javax.swing.JLabel();
         phone = new javax.swing.JTextField();
-        phoneApmat = new javax.swing.JLabel();
         save = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
 
         nameTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nameTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nameTitle.setText("Nombre:");
+        nameTitle.setText("* Nombre:");
 
         name.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-
-        countName.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        countName.setText("0/32");
 
         appatTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         appatTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -59,26 +80,17 @@ public class newProvider extends javax.swing.JPanel {
 
         appat.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        countAppat.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        countAppat.setText("0/32");
-
         apmatTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         apmatTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         apmatTitle.setText("Apellido materno:");
 
         apmat.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        countApmat.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        countApmat.setText("0/32");
-
         businessTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         businessTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         businessTitle.setText("Empresa:");
 
-        apmat1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-
-        businessApmat.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        businessApmat.setText("0/32");
+        business.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         phoneTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         phoneTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -86,56 +98,53 @@ public class newProvider extends javax.swing.JPanel {
 
         phone.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        phoneApmat.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        phoneApmat.setText("0/32");
-
         save.setBackground(new java.awt.Color(41, 121, 255));
         save.setForeground(new java.awt.Color(255, 255, 255));
         save.setText("Guardar");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
 
         cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(phoneTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(apmatTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(apmat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(countApmat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(apmat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(appatTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(appat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(countAppat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(appat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nameTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(countName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(businessTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(apmat1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(businessApmat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(business, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(phoneTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(phoneApmat, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                        .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,28 +153,23 @@ public class newProvider extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTitle)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(countName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(appatTitle)
-                    .addComponent(appat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(countAppat, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(appat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(apmatTitle)
-                    .addComponent(apmat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(countApmat, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(apmat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(businessTitle)
-                    .addComponent(apmat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(businessApmat, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(business, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneTitle)
-                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(phoneApmat, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save)
@@ -174,23 +178,43 @@ public class newProvider extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        menu.changeContent(w, "Proveedores", null);
+    }//GEN-LAST:event_cancelActionPerformed
 
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        if(name.getText().length() == 0){
+            global.validation(nameTitle, true);
+        }else{
+            try {
+                if("Guardar".equals(save.getText())){
+                    providerDB.add(name.getText(), appat.getText(), apmat.getText(), business.getText(), phone.getText());
+                }else{
+                    providerDB.edit(idProvider, name.getText(), appat.getText(), apmat.getText(), business.getText(), phone.getText());
+
+                }
+                global.validation(nameTitle, false);
+                menu.changeContent(w, "Proveedores", null);
+                provider.fillTable(providerDB.get());
+            } catch (SQLException ex) {
+                Logger.getLogger(newProvider.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+
+    }//GEN-LAST:event_saveActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apmat;
-    private javax.swing.JTextField apmat1;
     private javax.swing.JLabel apmatTitle;
     private javax.swing.JTextField appat;
     private javax.swing.JLabel appatTitle;
-    private javax.swing.JLabel businessApmat;
+    private javax.swing.JTextField business;
     private javax.swing.JLabel businessTitle;
     private javax.swing.JButton cancel;
-    private javax.swing.JLabel countApmat;
-    private javax.swing.JLabel countAppat;
-    private javax.swing.JLabel countName;
     public javax.swing.JTextField name;
     private javax.swing.JLabel nameTitle;
     private javax.swing.JTextField phone;
-    private javax.swing.JLabel phoneApmat;
     private javax.swing.JLabel phoneTitle;
     private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
