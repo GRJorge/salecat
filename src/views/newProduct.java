@@ -2,6 +2,12 @@ package views;
 
 import java.awt.Color;
 import static java.lang.Float.parseFloat;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import database.providerDB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +20,11 @@ public class newProduct extends javax.swing.JPanel {
      */
     public newProduct() {
         initComponents();
+        try {
+            fillProvider(providerDB.get());
+        } catch (SQLException ex) {
+            Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -45,7 +56,7 @@ public class newProduct extends javax.swing.JPanel {
 
         codeTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         codeTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        codeTitle.setText("Codigo:");
+        codeTitle.setText("* Codigo:");
 
         code.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
@@ -57,7 +68,7 @@ public class newProduct extends javax.swing.JPanel {
 
         priceTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         priceTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        priceTitle.setText("Precio:");
+        priceTitle.setText("* Precio:");
 
         price.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         price.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -105,8 +116,15 @@ public class newProduct extends javax.swing.JPanel {
 
         provider.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
+        save.setBackground(new java.awt.Color(41, 121, 255));
         save.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        save.setForeground(new java.awt.Color(255, 255, 255));
         save.setText("Guardar");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
 
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cancel.setText("Cancelar");
@@ -154,9 +172,9 @@ public class newProduct extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(MXN1)
-                                            .addComponent(MXN2))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(MXN2)))
+                                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -210,6 +228,10 @@ public class newProduct extends javax.swing.JPanel {
         
     }//GEN-LAST:event_cancelActionPerformed
 
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveActionPerformed
+
     private void getGain(){
         if(wholesalePrice.getText().length() > 0){
             try{
@@ -223,6 +245,14 @@ public class newProduct extends javax.swing.JPanel {
             }catch(Exception e){}
         }else{
             gain.setText("");
+        }
+    }
+    
+    private void fillProvider(ResultSet query) throws SQLException{
+        provider.removeAllItems();
+        
+        while(query.next()){
+            provider.addItem(query.getString("id") + " " + query.getString("name") + " " + query.getString("appat") + " " + query.getString("apmat"));
         }
     }
     

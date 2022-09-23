@@ -89,6 +89,7 @@ public class menu extends javax.swing.JFrame {
         });
 
         iconVisibleBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        iconVisibleBtn.setForeground(new java.awt.Color(255, 255, 255));
         iconVisibleBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconVisibleBtn.setText("<<");
 
