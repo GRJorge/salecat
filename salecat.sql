@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.9.2-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.19  Distrib 10.9.3-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: salecat
 -- ------------------------------------------------------
--- Server version	10.9.2-MariaDB
+-- Server version	10.9.3-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -60,6 +60,7 @@ CREATE TABLE `product` (
   `gain` int(11) NOT NULL DEFAULT 0,
   `dateCreation` date NOT NULL DEFAULT curdate(),
   `providerFK` int(11) DEFAULT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `providerFK` (`providerFK`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`providerFK`) REFERENCES `provider` (`id`)
@@ -116,7 +117,7 @@ CREATE TABLE `provider` (
   `appat` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `apmat` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `business` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telefono` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -190,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-06  8:32:51
+-- Dump completed on 2022-09-26 13:25:56

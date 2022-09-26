@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
-import database.providerDB;
 
 import database.providerDB;
 import salecat.global;

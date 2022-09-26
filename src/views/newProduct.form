@@ -30,35 +30,34 @@
                           <Component id="priceTitle" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="wholesalePriceTitle" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="gainTitle" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="providerTitle" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="providerTitle" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="amountTitle" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="cancel" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="exit" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="save" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                           <Component id="provider" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="price" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="MXN" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Component id="description" min="-2" pref="234" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="gain" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="wholesalePrice" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="price" max="32767" attributes="0"/>
+                                          <Component id="wholesalePrice" alignment="0" pref="100" max="32767" attributes="0"/>
+                                          <Component id="gain" max="32767" attributes="0"/>
+                                          <Component id="amount" alignment="0" pref="100" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="MXN1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="MXN1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="MXN2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="MXN" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="description" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -84,33 +83,38 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="price" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="priceTitle" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="price" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="MXN" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="wholesalePriceTitle" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="wholesalePrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="MXN1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="wholesalePriceTitle" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="gainTitle" min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="wholesalePrice" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="MXN1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="gain" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="MXN2" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="gain" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="gainTitle" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                  <Component id="MXN2" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="amountTitle" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="amount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="providerTitle" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="provider" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="providerTitle" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="save" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="exit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
@@ -162,18 +166,15 @@
         <Property name="text" type="java.lang.String" value="* Precio:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="price">
+    <Component class="javax.swing.JSpinner" name="price">
       <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="4"/>
-        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto" size="12" style="0"/>
         </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Float" stepSize="1.0" type="number"/>
+        </Property>
       </Properties>
-      <Events>
-        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="priceCaretUpdate"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="MXN">
       <Properties>
@@ -192,18 +193,15 @@
         <Property name="text" type="java.lang.String" value="Precio mayoreo:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="wholesalePrice">
+    <Component class="javax.swing.JSpinner" name="wholesalePrice">
       <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="4"/>
-        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto" size="12" style="0"/>
         </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Float" stepSize="1.0" type="number"/>
+        </Property>
       </Properties>
-      <Events>
-        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="wholesalePriceCaretUpdate"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="MXN1">
       <Properties>
@@ -222,17 +220,15 @@
         <Property name="text" type="java.lang.String" value="Ganancia:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="gain">
+    <Component class="javax.swing.JSpinner" name="gain">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto" size="12" style="0"/>
         </Property>
-        <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Float" stepSize="1.0" type="number"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="MXN2">
@@ -283,16 +279,35 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="cancel">
+    <Component class="javax.swing.JButton" name="exit">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cancelar"/>
+        <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="amountTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Roboto" size="12" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="Cantidad:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="amount">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Roboto" size="12" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

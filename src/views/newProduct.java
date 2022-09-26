@@ -1,20 +1,25 @@
 package views;
 
-import java.awt.Color;
-import static java.lang.Float.parseFloat;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import database.providerDB;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
+import javax.swing.event.ChangeEvent;
 
+import salecat.global;
+import database.providerDB;
+import database.productDB;
 /**
  *
  * @author axdevil
  */
 public class newProduct extends javax.swing.JPanel {
-
+    
+    ArrayList<Integer> idProviders = new ArrayList<>();
+    
+    
+    
     /**
      * Creates new form newProduct
      */
@@ -25,6 +30,13 @@ public class newProduct extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        wholesalePrice.addChangeListener((ChangeEvent e) -> {
+            getGain(); 
+        });
+        price.addChangeListener((ChangeEvent e) -> {
+            getGain(); 
+        });
     }
 
     /**
@@ -41,18 +53,20 @@ public class newProduct extends javax.swing.JPanel {
         descriptionTitle = new javax.swing.JLabel();
         description = new javax.swing.JTextField();
         priceTitle = new javax.swing.JLabel();
-        price = new javax.swing.JFormattedTextField();
+        price = new javax.swing.JSpinner();
         MXN = new javax.swing.JLabel();
         wholesalePriceTitle = new javax.swing.JLabel();
-        wholesalePrice = new javax.swing.JFormattedTextField();
+        wholesalePrice = new javax.swing.JSpinner();
         MXN1 = new javax.swing.JLabel();
         gainTitle = new javax.swing.JLabel();
-        gain = new javax.swing.JFormattedTextField();
+        gain = new javax.swing.JSpinner();
         MXN2 = new javax.swing.JLabel();
         providerTitle = new javax.swing.JLabel();
         provider = new javax.swing.JComboBox<>();
         save = new javax.swing.JButton();
-        cancel = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+        amountTitle = new javax.swing.JLabel();
+        amount = new javax.swing.JSpinner();
 
         codeTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         codeTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -70,13 +84,8 @@ public class newProduct extends javax.swing.JPanel {
         priceTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         priceTitle.setText("* Precio:");
 
-        price.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         price.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        price.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                priceCaretUpdate(evt);
-            }
-        });
+        price.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 1.0f));
 
         MXN.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         MXN.setText("MXN");
@@ -85,13 +94,8 @@ public class newProduct extends javax.swing.JPanel {
         wholesalePriceTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         wholesalePriceTitle.setText("Precio mayoreo:");
 
-        wholesalePrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         wholesalePrice.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        wholesalePrice.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                wholesalePriceCaretUpdate(evt);
-            }
-        });
+        wholesalePrice.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 1.0f));
 
         MXN1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         MXN1.setText("MXN");
@@ -100,11 +104,9 @@ public class newProduct extends javax.swing.JPanel {
         gainTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         gainTitle.setText("Ganancia:");
 
-        gain.setEditable(false);
-        gain.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
-        gain.setEnabled(false);
         gain.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        gain.setVerifyInputWhenFocusTarget(false);
+        gain.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 1.0f));
+        gain.setEnabled(false);
 
         MXN2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         MXN2.setText("MXN");
@@ -126,13 +128,20 @@ public class newProduct extends javax.swing.JPanel {
             }
         });
 
-        cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cancel.setText("Cancelar");
-        cancel.addActionListener(new java.awt.event.ActionListener() {
+        exit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        exit.setText("Salir");
+        exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelActionPerformed(evt);
+                exitActionPerformed(evt);
             }
         });
+
+        amountTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        amountTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        amountTitle.setText("Cantidad:");
+
+        amount.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        amount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -151,29 +160,29 @@ public class newProduct extends javax.swing.JPanel {
                             .addComponent(priceTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(wholesalePriceTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(gainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(providerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(providerTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(amountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(provider, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(MXN))
+                                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(gain, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(wholesalePrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(price)
+                                            .addComponent(wholesalePrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                            .addComponent(gain)
+                                            .addComponent(amount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(MXN1)
-                                            .addComponent(MXN2)))
-                                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(MXN2)
+                                            .addComponent(MXN, javax.swing.GroupLayout.Alignment.TRAILING))))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -190,89 +199,113 @@ public class newProduct extends javax.swing.JPanel {
                     .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(priceTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MXN, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(wholesalePriceTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(wholesalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(MXN1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wholesalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MXN1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(gainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MXN2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(gain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MXN2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(providerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(provider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(amountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(provider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(providerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save)
-                    .addComponent(cancel))
+                    .addComponent(exit))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void wholesalePriceCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_wholesalePriceCaretUpdate
-        getGain();
-    }//GEN-LAST:event_wholesalePriceCaretUpdate
-
-    private void priceCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_priceCaretUpdate
-        getGain();
-    }//GEN-LAST:event_priceCaretUpdate
-
-    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         
-    }//GEN-LAST:event_cancelActionPerformed
+    }//GEN-LAST:event_exitActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saveActionPerformed
-
-    private void getGain(){
-        if(wholesalePrice.getText().length() > 0){
-            try{
-                float r = parseFloat(price.getValue().toString()) - parseFloat(wholesalePrice.getValue().toString());
-                gain.setText(Float.toString(r));
-                if(r >= 0){
-                    gainTitle.setForeground(codeTitle.getForeground());
-                }else{
-                    gainTitle.setForeground(new Color(255,68,41));
-                }
-            }catch(Exception e){}
+        global.validation(codeTitle, false);
+        global.validation(priceTitle, false);
+        
+        if(code.getText().length() == 0){
+            global.validation(codeTitle, true);
+            code.requestFocusInWindow();
+        }else if((float) price.getValue() == 0){
+            global.validation(priceTitle, true);
         }else{
-            gain.setText("");
+            String id;
+            if(!"Ninguno".equals(provider.getSelectedItem().toString())){
+                id = idProviders.get(provider.getSelectedIndex() - 1).toString();
+            }else{
+                id = "NULL";
+            }
+            
+            try {
+                productDB.add(code.getText(), description.getText(), price.getValue().toString(), wholesalePrice.getValue().toString(), gain.getValue().toString(), id, (int) amount.getValue());
+            } catch (SQLException ex) {
+                Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            clean();
         }
+
+    }//GEN-LAST:event_saveActionPerformed
+        
+    private void getGain(){
+        float total = (float) price.getValue() - (float) wholesalePrice.getValue();
+        
+        gain.setValue(total);
     }
     
     private void fillProvider(ResultSet query) throws SQLException{
         provider.removeAllItems();
         
+        provider.addItem("Ninguno");
         while(query.next()){
-            provider.addItem(query.getString("id") + " " + query.getString("name") + " " + query.getString("appat") + " " + query.getString("apmat"));
+            idProviders.add(query.getInt("id"));
+            provider.addItem(query.getString("name") + " " + query.getString("appat") + " " + query.getString("apmat"));
         }
+    }
+    
+    private void clean(){
+        code.setText("");
+        description.setText("");
+        price.setValue((float) 0);
+        wholesalePrice.setValue((float) 0);
+        gain.setValue((float) 0);
+        amount.setValue((int) 0);
+        provider.setSelectedIndex(0);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel MXN;
     private javax.swing.JLabel MXN1;
     private javax.swing.JLabel MXN2;
-    private javax.swing.JButton cancel;
+    private javax.swing.JSpinner amount;
+    private javax.swing.JLabel amountTitle;
     public javax.swing.JTextField code;
     private javax.swing.JLabel codeTitle;
     private javax.swing.JTextField description;
     private javax.swing.JLabel descriptionTitle;
-    private javax.swing.JFormattedTextField gain;
+    private javax.swing.JButton exit;
+    private javax.swing.JSpinner gain;
     private javax.swing.JLabel gainTitle;
-    private javax.swing.JFormattedTextField price;
+    private javax.swing.JSpinner price;
     private javax.swing.JLabel priceTitle;
     private javax.swing.JComboBox<String> provider;
     private javax.swing.JLabel providerTitle;
     private javax.swing.JButton save;
-    private javax.swing.JFormattedTextField wholesalePrice;
+    private javax.swing.JSpinner wholesalePrice;
     private javax.swing.JLabel wholesalePriceTitle;
     // End of variables declaration//GEN-END:variables
 }

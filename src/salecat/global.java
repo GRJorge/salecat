@@ -12,11 +12,13 @@ import views.menu;
  * @author jorge garcia
  */
 public class global {
+    
     public static void showJFrame(JFrame frame, String title){
         frame.setLocationRelativeTo(null);
         frame.setTitle(title);
         frame.setVisible(true);
     }
+    
     public static String getDataTable(DefaultTableModel model, JTable table, int column){
         return model.getValueAt(table.getSelectedRow(), column).toString();
     }

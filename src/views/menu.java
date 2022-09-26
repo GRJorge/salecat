@@ -13,7 +13,7 @@ public class menu extends javax.swing.JFrame {
     
     public menu() {
         initComponents();
-        changeContent(new ticket(), "Contenido del ticket", null);
+        changeContent(new inventory(), "Inventario", null);
     }
 
     @SuppressWarnings("unchecked")
