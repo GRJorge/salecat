@@ -22,4 +22,24 @@ public class productDB {
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT * FROM product");
     }
+    
+    public static void edit(int id, String code, String description, String price, String wholesalePrice, String gain, String providerFK, int amount) throws SQLException{
+        stmt = con.createStatement();
+        stmt.executeUpdate("UPDATE product SET code='" + code + "',description='" + description + "',price=" + price + ",wholesalePrice=" + wholesalePrice + ",gain=" + gain + ",providerFK=" + providerFK + ",amount=" + amount + " WHERE id=" + id);
+    }
+    
+    public static void delete(int id) throws SQLException{
+        stmt = con.createStatement();
+        stmt.executeUpdate("DELETE FROM product WHERE id=" + id);
+    }
+    
+    public static ResultSet existCode(String code) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT code FROM product WHERE code='" + code + "'");
+    }
+    
+    public static ResultSet getProduct(int id) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT * FROM product WHERE id=" + id);
+    }
 }

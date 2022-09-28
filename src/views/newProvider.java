@@ -28,9 +28,9 @@ public class newProvider extends javax.swing.JPanel {
         
         if(mode == 1){
             save.setText("Editar");
-            ResultSet query;
+            
             try {
-                query = providerDB.getProvider(idProvider);
+                ResultSet query = providerDB.getProvider(idProvider);
                 while(query.next()){
                     name.setText(query.getString("name"));
                     appat.setText(query.getString("appat"));

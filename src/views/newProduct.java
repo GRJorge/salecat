@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import salecat.global;
 import database.providerDB;
 import database.productDB;
+import javax.swing.JOptionPane;
 /**
  *
  * @author axdevil
@@ -17,18 +18,53 @@ import database.productDB;
 public class newProduct extends javax.swing.JPanel {
     
     ArrayList<Integer> idProviders = new ArrayList<>();
-    
+    int mode;
+    int idProduct;
     
     
     /**
      * Creates new form newProduct
+     * 0=create
+     * 1=create from inventory
+     * 2=edit
      */
-    public newProduct() {
+    public newProduct(int mode, int idProduct) {
         initComponents();
+        
+        this.mode = mode;
+        this.idProduct = idProduct;
+        
         try {
             fillProvider(providerDB.get());
         } catch (SQLException ex) {
             Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(mode != 0){
+            exit.setText("Cancelar");
+        }
+        if(mode == 2){
+            save.setText("Editar");
+            
+            try {
+                ResultSet query = productDB.getProduct(idProduct);
+                while(query.next()){
+                    code.setText(query.getString("code"));
+                    description.setText(query.getString("description"));
+                    price.setValue(query.getFloat("price"));
+                    wholesalePrice.setValue(query.getFloat("wholesalePrice"));
+                    gain.setValue(query.getFloat("gain"));
+                    amount.setValue(query.getInt("amount"));
+                    for(int i = 0;i < idProviders.size();i++){
+                        if(idProviders.get(i) == query.getInt("providerFK")){
+                            provider.setSelectedIndex(i + 1);
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
         wholesalePrice.addChangeListener((ChangeEvent e) -> {
@@ -73,6 +109,11 @@ public class newProduct extends javax.swing.JPanel {
         codeTitle.setText("* Codigo:");
 
         code.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        code.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeKeyPressed(evt);
+            }
+        });
 
         descriptionTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         descriptionTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -230,14 +271,33 @@ public class newProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        
+        if(mode == 0){
+            System.out.println("Aqui deberia ir al punto de venta");
+        }else{
+            menu.changeContent(new inventory(), "Inventario", null);
+        }
     }//GEN-LAST:event_exitActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         global.validation(codeTitle, false);
         global.validation(priceTitle, false);
         
+        boolean existCode = false;
+        
+        try {
+            while(productDB.existCode(code.getText()).next()){
+                existCode = true;
+                break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         if(code.getText().length() == 0){
+            global.validation(codeTitle, true);
+            code.requestFocusInWindow();
+        }else if(existCode && mode == 0){
+            JOptionPane.showMessageDialog(null, "Ya existe un producto con ese codigo","Error",1);
             global.validation(codeTitle, true);
             code.requestFocusInWindow();
         }else if((float) price.getValue() == 0){
@@ -251,15 +311,31 @@ public class newProduct extends javax.swing.JPanel {
             }
             
             try {
-                productDB.add(code.getText(), description.getText(), price.getValue().toString(), wholesalePrice.getValue().toString(), gain.getValue().toString(), id, (int) amount.getValue());
+                if(mode < 2){
+                    productDB.add(code.getText(), description.getText(), price.getValue().toString(), wholesalePrice.getValue().toString(), gain.getValue().toString(), id, (int) amount.getValue());
+                }else{
+                    productDB.edit(idProduct,code.getText(), description.getText(), price.getValue().toString(), wholesalePrice.getValue().toString(), gain.getValue().toString(), id, (int) amount.getValue());
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(newProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            clean();
+            if(mode == 0){
+                clean();
+                code.requestFocusInWindow();
+            }else{
+                menu.changeContent(new inventory(), "Inventario", null);
+            }
+            
         }
 
     }//GEN-LAST:event_saveActionPerformed
+
+    private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
+        if(evt.getKeyCode() == 10){
+            description.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_codeKeyPressed
         
     private void getGain(){
         float total = (float) price.getValue() - (float) wholesalePrice.getValue();

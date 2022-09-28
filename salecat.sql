@@ -55,9 +55,9 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` int(11) NOT NULL DEFAULT 0,
-  `wholesalePrice` int(11) NOT NULL DEFAULT 0,
-  `gain` int(11) NOT NULL DEFAULT 0,
+  `price` float NOT NULL DEFAULT 0,
+  `wholesalePrice` float NOT NULL DEFAULT 0,
+  `gain` float NOT NULL DEFAULT 0,
   `dateCreation` date NOT NULL DEFAULT curdate(),
   `providerFK` int(11) DEFAULT NULL,
   `amount` int(11) NOT NULL DEFAULT 0,
@@ -191,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-26 13:25:56
+-- Dump completed on 2022-09-26 22:48:54

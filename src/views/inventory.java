@@ -3,18 +3,35 @@ package views;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import database.productDB;
+import javax.swing.JOptionPane;
+import salecat.global;
 
 /**
  *
  * @author axdevil
  */
 public class inventory extends javax.swing.JPanel {
-
+    
+    ArrayList<Integer> idProducts = new ArrayList<>();
+    
     /**
      * Creates new form inventory
      */
     public inventory() {
         initComponents();
+        
+        setVisibleButtons(false);
+        
+        try {
+            fillTable(productDB.get());
+        } catch (SQLException ex) {
+            Logger.getLogger(inventory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -28,7 +45,11 @@ public class inventory extends javax.swing.JPanel {
 
         scrollTable = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        newProdcut = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
+        remove = new javax.swing.JButton();
 
+        table.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -52,39 +73,127 @@ public class inventory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        table.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tableFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tableFocusLost(evt);
+            }
+        });
         scrollTable.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setMinWidth(128);
+            table.getColumnModel().getColumn(0).setMaxWidth(256);
             table.getColumnModel().getColumn(2).setMaxWidth(64);
             table.getColumnModel().getColumn(3).setMaxWidth(64);
             table.getColumnModel().getColumn(4).setMaxWidth(64);
             table.getColumnModel().getColumn(6).setMaxWidth(64);
         }
 
+        newProdcut.setBackground(new java.awt.Color(41, 121, 255));
+        newProdcut.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        newProdcut.setForeground(new java.awt.Color(255, 255, 255));
+        newProdcut.setText("Nuevo");
+        newProdcut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newProdcutActionPerformed(evt);
+            }
+        });
+
+        edit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        edit.setText("Editar");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
+        remove.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        remove.setText("Eliminar");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(remove, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newProdcut, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                .addGap(30, 30, 30))
+                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newProdcut)
+                    .addComponent(edit)
+                    .addComponent(remove))
+                .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void newProdcutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProdcutActionPerformed
+        newProduct w = new newProduct(1,0);
+        
+        menu.changeContent(w, "Nuevo producto", w.code);
+    }//GEN-LAST:event_newProdcutActionPerformed
+
+    private void tableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableFocusGained
+        setVisibleButtons(true);
+    }//GEN-LAST:event_tableFocusGained
+
+    private void tableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableFocusLost
+        setVisibleButtons(false);
+    }//GEN-LAST:event_tableFocusLost
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        newProduct w = new newProduct(2,idProducts.get(table.getSelectedRow()));
+        
+        menu.changeContent(w, "Editar producto", w.code);
+    }//GEN-LAST:event_editActionPerformed
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        String[] buttons = {"No","Si"};
+        int option = JOptionPane.showOptionDialog(null, "¿Seguro que quieres eliminarlo?","Confirmacion",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[1]);
+        
+        if(option == 1){
+            try{
+                productDB.delete(idProducts.get(table.getSelectedRow()));
+                fillTable(productDB.get());
+            }catch(SQLException e){
+                Logger.getLogger(productDB.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }else{
+            return;
+        }
+    }//GEN-LAST:event_removeActionPerformed
 
     private void fillTable(ResultSet query) throws SQLException{
         String[] data = new String[7];
         
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
+        idProducts.clear();
         
         while(query.next()){
+            idProducts.add(query.getInt("id"));
             data[0] = query.getString("code");
             data[1] = query.getString("description");
             data[2] = query.getString("price");
@@ -96,8 +205,16 @@ public class inventory extends javax.swing.JPanel {
         }
         table.setModel(model);
     }
-
+    
+    private void setVisibleButtons(boolean visible){
+        edit.setVisible(visible);
+        remove.setVisible(visible);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton edit;
+    private javax.swing.JButton newProdcut;
+    private javax.swing.JButton remove;
     private javax.swing.JScrollPane scrollTable;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables

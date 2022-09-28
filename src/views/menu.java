@@ -21,6 +21,7 @@ public class menu extends javax.swing.JFrame {
     private void initComponents() {
 
         barMenu = new javax.swing.JPanel();
+        inventory = new javax.swing.JLabel();
         newProduct = new javax.swing.JLabel();
         provider = new javax.swing.JLabel();
         visibleBtn = new javax.swing.JPanel();
@@ -38,10 +39,23 @@ public class menu extends javax.swing.JFrame {
 
         barMenu.setBackground(new java.awt.Color(41, 121, 255));
 
+        inventory.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        inventory.setForeground(new java.awt.Color(255, 255, 255));
+        inventory.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        inventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/inventory.png"))); // NOI18N
+        inventory.setText("  Inventario");
+        inventory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        inventory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inventoryMousePressed(evt);
+            }
+        });
+
         newProduct.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         newProduct.setForeground(new java.awt.Color(255, 255, 255));
-        newProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        newProduct.setText("Nuevo producto");
+        newProduct.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        newProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/newProduct.png"))); // NOI18N
+        newProduct.setText("  Nuevo producto");
         newProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         newProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -51,8 +65,9 @@ public class menu extends javax.swing.JFrame {
 
         provider.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         provider.setForeground(new java.awt.Color(255, 255, 255));
-        provider.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        provider.setText("Proveedores");
+        provider.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        provider.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/provider.png"))); // NOI18N
+        provider.setText("  Proveedores");
         provider.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         provider.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -64,16 +79,19 @@ public class menu extends javax.swing.JFrame {
         barMenu.setLayout(barMenuLayout);
         barMenuLayout.setHorizontalGroup(
             barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(newProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
             .addGroup(barMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(provider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(12, 12, 12)
+                .addGroup(barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(newProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                    .addComponent(inventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(provider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         barMenuLayout.setVerticalGroup(
             barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barMenuLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
+                .addComponent(inventory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(newProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(provider)
@@ -169,7 +187,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_visibleBtnMousePressed
 
     private void newProductMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newProductMousePressed
-        newProduct w = new newProduct();
+        newProduct w = new newProduct(0,0);
         
         changeContent(w, "Nuevo producto", w.code);       
     }//GEN-LAST:event_newProductMousePressed
@@ -179,10 +197,12 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_contentComponentResized
 
     private void providerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerMousePressed
-        provider w = new provider();
-        
-        changeContent(w, "Proveedores", null);
+        changeContent(new provider(), "Proveedores", null);
     }//GEN-LAST:event_providerMousePressed
+
+    private void inventoryMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventoryMousePressed
+        changeContent(new inventory(), "Inventario", null);
+    }//GEN-LAST:event_inventoryMousePressed
     
     public static void changeContent(JPanel newContent, String title,JTextField focus){
         titleContent.setText(title);
@@ -246,6 +266,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel barMenu;
     private static javax.swing.JPanel content;
     private javax.swing.JLabel iconVisibleBtn;
+    private javax.swing.JLabel inventory;
     private javax.swing.JLabel newProduct;
     private javax.swing.JLabel provider;
     public static javax.swing.JLabel titleContent;
