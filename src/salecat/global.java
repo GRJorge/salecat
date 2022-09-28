@@ -13,6 +13,16 @@ import views.menu;
  */
 public class global {
     
+    private static int actualUser;
+
+    public static int getActualUser() {
+        return actualUser;
+    }
+
+    public static void setActualUser(int actualUser) {
+        global.actualUser = actualUser;
+    }
+    
     public static void showJFrame(JFrame frame, String title){
         frame.setLocationRelativeTo(null);
         frame.setTitle(title);

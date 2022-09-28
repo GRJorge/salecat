@@ -2,7 +2,7 @@ package views;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import database.user;
+import database.userDB;
 import salecat.global;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -20,7 +20,7 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
         try {
-            fillUser(user.getName());
+            fillUser(userDB.getName());
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,6 +69,7 @@ public class login extends javax.swing.JFrame {
 
         entry.setBackground(new java.awt.Color(41, 121, 255));
         entry.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        entry.setForeground(new java.awt.Color(255, 255, 255));
         entry.setText("Entrar");
         entry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +136,7 @@ public class login extends javax.swing.JFrame {
 
     private void entryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entryActionPerformed
         try {
-            validation(user.validatePassword(userCombo.getSelectedItem().toString(), String.valueOf(password.getPassword())));
+            validation(userDB.validatePassword(userCombo.getSelectedItem().toString(), String.valueOf(password.getPassword())));
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -157,6 +158,11 @@ public class login extends javax.swing.JFrame {
         if(!"".equals(String.valueOf(password.getPassword()))){
             while(query.next()){
                 if(query.getString("name").isEmpty() == false){
+                    ResultSet userId = userDB.getId(userCombo.getSelectedItem().toString());
+                    while(userId.next()){
+                        global.setActualUser(userId.getInt("id"));
+                    }
+                    
                     this.setVisible(false);
                     global.showJFrame(new menu(), "Menu principal");
                 }

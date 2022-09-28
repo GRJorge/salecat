@@ -24,6 +24,7 @@ public class menu extends javax.swing.JFrame {
         inventory = new javax.swing.JLabel();
         newProduct = new javax.swing.JLabel();
         provider = new javax.swing.JLabel();
+        settings = new javax.swing.JLabel();
         visibleBtn = new javax.swing.JPanel();
         iconVisibleBtn = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -75,6 +76,14 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        settings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/settings.png"))); // NOI18N
+        settings.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        settings.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                settingsMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout barMenuLayout = new javax.swing.GroupLayout(barMenu);
         barMenu.setLayout(barMenuLayout);
         barMenuLayout.setHorizontalGroup(
@@ -82,9 +91,13 @@ public class menu extends javax.swing.JFrame {
             .addGroup(barMenuLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(newProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                    .addComponent(newProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(inventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(provider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(barMenuLayout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(settings)
+                .addGap(0, 68, Short.MAX_VALUE))
         );
         barMenuLayout.setVerticalGroup(
             barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +108,9 @@ public class menu extends javax.swing.JFrame {
                 .addComponent(newProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(provider)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(settings)
+                .addGap(16, 16, 16))
         );
 
         visibleBtn.setBackground(new java.awt.Color(0, 88, 235));
@@ -203,6 +218,10 @@ public class menu extends javax.swing.JFrame {
     private void inventoryMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventoryMousePressed
         changeContent(new inventory(), "Inventario", null);
     }//GEN-LAST:event_inventoryMousePressed
+
+    private void settingsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMousePressed
+        changeContent(new settings(), "Configuración", null);
+    }//GEN-LAST:event_settingsMousePressed
     
     public static void changeContent(JPanel newContent, String title,JTextField focus){
         titleContent.setText(title);
@@ -269,6 +288,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel inventory;
     private javax.swing.JLabel newProduct;
     private javax.swing.JLabel provider;
+    private javax.swing.JLabel settings;
     public static javax.swing.JLabel titleContent;
     private javax.swing.JPanel visibleBtn;
     // End of variables declaration//GEN-END:variables
