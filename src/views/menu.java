@@ -13,7 +13,8 @@ public class menu extends javax.swing.JFrame {
     
     public menu() {
         initComponents();
-        changeContent(new inventory(), "Inventario", null);
+        sale w = new sale();
+        changeContent(w, "Punto de venta", w.code);
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +26,7 @@ public class menu extends javax.swing.JFrame {
         newProduct = new javax.swing.JLabel();
         provider = new javax.swing.JLabel();
         settings = new javax.swing.JLabel();
+        sale = new javax.swing.JLabel();
         visibleBtn = new javax.swing.JPanel();
         iconVisibleBtn = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -84,6 +86,18 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        sale.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        sale.setForeground(new java.awt.Color(255, 255, 255));
+        sale.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sale.png"))); // NOI18N
+        sale.setText("  Punto de venta");
+        sale.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                saleMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout barMenuLayout = new javax.swing.GroupLayout(barMenu);
         barMenu.setLayout(barMenuLayout);
         barMenuLayout.setHorizontalGroup(
@@ -93,7 +107,8 @@ public class menu extends javax.swing.JFrame {
                 .addGroup(barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(newProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(inventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(provider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(provider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(barMenuLayout.createSequentialGroup()
                 .addContainerGap(68, Short.MAX_VALUE)
                 .addComponent(settings)
@@ -102,7 +117,9 @@ public class menu extends javax.swing.JFrame {
         barMenuLayout.setVerticalGroup(
             barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barMenuLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(31, 31, 31)
+                .addComponent(sale)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inventory)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(newProduct)
@@ -222,6 +239,12 @@ public class menu extends javax.swing.JFrame {
     private void settingsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMousePressed
         changeContent(new settings(), "Configuración", null);
     }//GEN-LAST:event_settingsMousePressed
+
+    private void saleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saleMousePressed
+        sale w = new sale();
+        
+        changeContent(w,"Punto de venta", w.code);
+    }//GEN-LAST:event_saleMousePressed
     
     public static void changeContent(JPanel newContent, String title,JTextField focus){
         titleContent.setText(title);
@@ -288,6 +311,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel inventory;
     private javax.swing.JLabel newProduct;
     private javax.swing.JLabel provider;
+    private javax.swing.JLabel sale;
     private javax.swing.JLabel settings;
     public static javax.swing.JLabel titleContent;
     private javax.swing.JPanel visibleBtn;
