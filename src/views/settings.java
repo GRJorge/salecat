@@ -41,6 +41,7 @@ public class settings extends javax.swing.JPanel {
         actualUser = new javax.swing.JLabel();
 
         actualUser.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        actualUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         actualUser.setText("Usuario actual: 1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -49,7 +50,7 @@ public class settings extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(actualUser)
+                .addComponent(actualUser, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -57,7 +58,7 @@ public class settings extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(actualUser)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

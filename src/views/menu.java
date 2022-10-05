@@ -27,6 +27,9 @@ public class menu extends javax.swing.JFrame {
         provider = new javax.swing.JLabel();
         settings = new javax.swing.JLabel();
         sale = new javax.swing.JLabel();
+        icon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         visibleBtn = new javax.swing.JPanel();
         iconVisibleBtn = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -98,6 +101,13 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon100x.png"))); // NOI18N
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout barMenuLayout = new javax.swing.GroupLayout(barMenu);
         barMenu.setLayout(barMenuLayout);
         barMenuLayout.setHorizontalGroup(
@@ -113,11 +123,23 @@ public class menu extends javax.swing.JFrame {
                 .addContainerGap(68, Short.MAX_VALUE)
                 .addComponent(settings)
                 .addGap(0, 68, Short.MAX_VALUE))
+            .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(barMenuLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(barMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1)
+                .addContainerGap())
         );
         barMenuLayout.setVerticalGroup(
             barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barMenuLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(14, 14, 14)
+                .addComponent(icon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sale)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inventory)
@@ -125,6 +147,8 @@ public class menu extends javax.swing.JFrame {
                 .addComponent(newProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(provider)
+                .addGap(81, 81, 81)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(settings)
                 .addGap(16, 16, 16))
@@ -307,8 +331,11 @@ public class menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barMenu;
     private static javax.swing.JPanel content;
+    private javax.swing.JLabel icon;
     private javax.swing.JLabel iconVisibleBtn;
     private javax.swing.JLabel inventory;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel newProduct;
     private javax.swing.JLabel provider;
     private javax.swing.JLabel sale;

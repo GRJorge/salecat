@@ -22,6 +22,7 @@ public class global {
     public static void setActualUser(int actualUser) {
         global.actualUser = actualUser;
     }
+    //FUNCIONES GLOBALES
     
     public static void showJFrame(JFrame frame, String title){
         frame.setLocationRelativeTo(null);
