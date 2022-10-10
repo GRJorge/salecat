@@ -42,6 +42,11 @@ public class menu extends javax.swing.JFrame {
                 formWindowStateChanged(evt);
             }
         });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         barMenu.setBackground(new java.awt.Color(41, 121, 255));
 
@@ -269,6 +274,10 @@ public class menu extends javax.swing.JFrame {
         
         changeContent(w,"Punto de venta", w.code);
     }//GEN-LAST:event_saleMousePressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        System.out.println(evt.getKeyCode());
+    }//GEN-LAST:event_formKeyPressed
     
     public static void changeContent(JPanel newContent, String title,JTextField focus){
         titleContent.setText(title);

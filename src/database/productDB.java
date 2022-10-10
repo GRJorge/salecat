@@ -23,6 +23,10 @@ public class productDB {
         return stmt.executeQuery("SELECT * FROM product");
     }
     
+    public static ResultSet getByCode(String code) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT description,price FROM product WHERE code='" + code + "'");
+    }
     public static void edit(int id, String code, String description, String price, String wholesalePrice, String gain, String providerFK, int amount) throws SQLException{
         stmt = con.createStatement();
         stmt.executeUpdate("UPDATE product SET code='" + code + "',description='" + description + "',price=" + price + ",wholesalePrice=" + wholesalePrice + ",gain=" + gain + ",providerFK=" + providerFK + ",amount=" + amount + " WHERE id=" + id);

@@ -272,7 +272,8 @@ public class newProduct extends javax.swing.JPanel {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         if(mode == 0){
-            System.out.println("Aqui deberia ir al punto de venta");
+            sale w = new sale();
+            menu.changeContent(w, "Punto de venta", w.code);
         }else{
             menu.changeContent(new inventory(), "Inventario", null);
         }
