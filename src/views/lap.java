@@ -1,22 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
 
 /**
  *
  * @author axdevil
  */
 public class lap extends javax.swing.JPanel {
-
+    
+    float totalVar;
+    
     /**
      * Creates new form lap
      */
-    public lap() {
+    public lap(float total) {
         initComponents();
+        totalVar = total;
+        this.total.setText("$" + total);
+        
+        ((JSpinner.DefaultEditor)received.getEditor()).getTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == 10){
+                    confirm.requestFocusInWindow();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        
+        received.addChangeListener((ChangeEvent e) -> {
+            System.out.println("Aqui deberia actualizar el cambio   ");
+        });
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,46 +52,82 @@ public class lap extends javax.swing.JPanel {
         total = new javax.swing.JLabel();
         receivedTitle = new javax.swing.JLabel();
         received = new javax.swing.JSpinner();
+        lapTitle = new javax.swing.JLabel();
+        lap = new javax.swing.JLabel();
+        confirm = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
 
-        totalTitle.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        totalTitle.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         totalTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         totalTitle.setText("Total:");
         totalTitle.setToolTipText("");
 
-        total.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        total.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         total.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         total.setText("0");
         total.setToolTipText("");
 
-        receivedTitle.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        receivedTitle.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         receivedTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         receivedTitle.setText("Recibido:");
         receivedTitle.setToolTipText("");
+        receivedTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                receivedTitleKeyPressed(evt);
+            }
+        });
 
-        received.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        received.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         received.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
+
+        lapTitle.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        lapTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lapTitle.setText("Cambio:");
+        lapTitle.setToolTipText("");
+
+        lap.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        lap.setForeground(new java.awt.Color(41, 121, 255));
+        lap.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lap.setText("0");
+        lap.setToolTipText("");
+
+        confirm.setBackground(new java.awt.Color(41, 121, 255));
+        confirm.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        confirm.setForeground(new java.awt.Color(255, 255, 255));
+        confirm.setText("Vender");
+
+        cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cancel.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(receivedTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(received, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(totalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lapTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lap, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(totalTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(receivedTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(received, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalTitle)
                     .addComponent(total))
@@ -77,12 +135,28 @@ public class lap extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(received)
                     .addComponent(receivedTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lapTitle)
+                    .addComponent(lap))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirm)
+                    .addComponent(cancel))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void receivedTitleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_receivedTitleKeyPressed
+        System.out.println(evt.getKeyCode());
+    }//GEN-LAST:event_receivedTitleKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancel;
+    private javax.swing.JButton confirm;
+    private javax.swing.JLabel lap;
+    private javax.swing.JLabel lapTitle;
     public javax.swing.JSpinner received;
     private javax.swing.JLabel receivedTitle;
     private javax.swing.JLabel total;

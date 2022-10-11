@@ -7,9 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 import database.productDB;
-import salecat.global;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  *
@@ -17,6 +19,7 @@ import salecat.global;
  */
 public class sale extends javax.swing.JPanel {
     
+    public float totalVar;
     /**
      * Creates new form sale
      */
@@ -24,6 +27,19 @@ public class sale extends javax.swing.JPanel {
         initComponents();
         notCode.setVisible(false);
         remove.setVisible(false);
+        
+        ((JSpinner.DefaultEditor)amount.getEditor()).getTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == 10){
+                    code.requestFocusInWindow();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
     }
 
     /**
@@ -199,7 +215,7 @@ public class sale extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
-        lap w = new lap();
+        lap w = new lap(totalVar);
         menu.changeContent(w, "Cambio", null);
         w.received.requestFocusInWindow();
         
@@ -224,11 +240,11 @@ public class sale extends javax.swing.JPanel {
         }
         code.setText("");
     }
-
+    
     private void getTotal(){
         DecimalFormat limit = new DecimalFormat("#.##");
 
-        float totalVar = 0;
+        totalVar = 0;
         
         for(int i = 0;i < table.getRowCount();i++){
             totalVar += Integer.parseInt(table.getValueAt(i, 0).toString()) * Float.parseFloat(table.getValueAt(i, 2).toString());
