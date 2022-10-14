@@ -4,6 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import salecat.global;
+import database.saleDB;
 
 /**
  *
@@ -12,13 +19,16 @@ import javax.swing.event.ChangeEvent;
 public class lap extends javax.swing.JPanel {
     
     float totalVar;
+    DefaultTableModel model;
+    sale sale = new sale();
     
     /**
      * Creates new form lap
      */
-    public lap(float total) {
+    public lap(float total, DefaultTableModel model) {
         initComponents();
         totalVar = total;
+        this.model = model;
         this.total.setText("$" + total);
         
         ((JSpinner.DefaultEditor)received.getEditor()).getTextField().addKeyListener(new KeyListener(){
@@ -35,7 +45,7 @@ public class lap extends javax.swing.JPanel {
         });
         
         received.addChangeListener((ChangeEvent e) -> {
-            System.out.println("Aqui deberia actualizar el cambio   ");
+            getLap();
         });
     }
     
@@ -71,11 +81,6 @@ public class lap extends javax.swing.JPanel {
         receivedTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         receivedTitle.setText("Recibido:");
         receivedTitle.setToolTipText("");
-        receivedTitle.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                receivedTitleKeyPressed(evt);
-            }
-        });
 
         received.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         received.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
@@ -95,9 +100,19 @@ public class lap extends javax.swing.JPanel {
         confirm.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         confirm.setForeground(new java.awt.Color(255, 255, 255));
         confirm.setText("Vender");
+        confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
 
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -147,11 +162,33 @@ public class lap extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void receivedTitleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_receivedTitleKeyPressed
-        System.out.println(evt.getKeyCode());
-    }//GEN-LAST:event_receivedTitleKeyPressed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        sale.table.setModel(model);
+        sale.total.setText(total.getText());
+        sale.totalVar = this.totalVar;
+        menu.changeContent(sale, "Punto de venta", sale.code);
+    }//GEN-LAST:event_cancelActionPerformed
 
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        try {
+            saleDB.add(totalVar);
+            menu.changeContent(sale, "Punto de venta", sale.code);
+            System.out.println("Aqui imprime ticket");
+        } catch (SQLException ex) {
+            Logger.getLogger(lap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_confirmActionPerformed
 
+    private void getLap(){
+        float lapVar = (Float.parseFloat(received.getValue().toString()) - totalVar);
+        lap.setText("$" + lapVar);
+        if(lapVar < 0){
+            global.validation(lap, true);
+        }else{
+            global.validation(lap, false);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
     private javax.swing.JButton confirm;

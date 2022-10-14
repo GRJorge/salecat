@@ -13,7 +13,7 @@ public class connectionDB {
     public static String bd = "salecat";
     public static String user = "root";
     public static String pass = "";
-    public static String url = "jdbc:mysql://localhost:3306/";
+    public static String url = "jdbc:mysql://localhost:3305/";
     public static Connection con;
     
     public static Connection connection(){

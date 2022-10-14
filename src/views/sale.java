@@ -40,6 +40,8 @@ public class sale extends javax.swing.JPanel {
             @Override
             public void keyReleased(KeyEvent e) {}
         });
+        
+        getTotal();
     }
 
     /**
@@ -83,14 +85,24 @@ public class sale extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         table.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tableFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tableFocusLost(evt);
             }
         });
         scrollTable.setViewportView(table);
@@ -190,6 +202,8 @@ public class sale extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(sale.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else if(evt.getKeyCode() == 27){
+            goLap();
         }
     }//GEN-LAST:event_codeKeyPressed
 
@@ -215,11 +229,12 @@ public class sale extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
-        lap w = new lap(totalVar);
-        menu.changeContent(w, "Cambio", null);
-        w.received.requestFocusInWindow();
-        
+        goLap();
     }//GEN-LAST:event_confirmActionPerformed
+
+    private void tableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableFocusLost
+        remove.setVisible(false);
+    }//GEN-LAST:event_tableFocusLost
 
     private void addProduct(ResultSet query) throws SQLException{
         String[] data = new String[3];
@@ -257,6 +272,14 @@ public class sale extends javax.swing.JPanel {
         return (DefaultTableModel)table.getModel();
     }
     
+    private void goLap(){
+        if(table.getRowCount() > 0){
+            lap w = new lap(totalVar, tableModel());
+            menu.changeContent(w, "Cambio", null);
+            w.received.requestFocusInWindow();
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner amount;
     private javax.swing.JButton cancel;
@@ -265,7 +288,7 @@ public class sale extends javax.swing.JPanel {
     private javax.swing.JLabel notCode;
     private javax.swing.JButton remove;
     private javax.swing.JScrollPane scrollTable;
-    private javax.swing.JTable table;
-    private javax.swing.JLabel total;
+    public javax.swing.JTable table;
+    public javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }
