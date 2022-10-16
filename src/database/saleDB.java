@@ -19,4 +19,9 @@ public class saleDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO sale VALUES(NULL, DEFAULT," + total + "," + global.getActualUser() + ")");
     }
+    
+    public static ResultSet getLast() throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT MAX(id) FROM sale");
+    }
 }

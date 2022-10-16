@@ -25,7 +25,7 @@ public class productDB {
     
     public static ResultSet getByCode(String code) throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT description,price FROM product WHERE code='" + code + "'");
+        return stmt.executeQuery("SELECT id,description,price FROM product WHERE code='" + code + "'");
     }
     public static void edit(int id, String code, String description, String price, String wholesalePrice, String gain, String providerFK, int amount) throws SQLException{
         stmt = con.createStatement();

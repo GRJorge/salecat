@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-
-import database.productDB;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
+import database.productDB;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.awt.event.KeyListener;
 public class sale extends javax.swing.JPanel {
     
     public float totalVar;
+    public ArrayList<Integer> idProducts = new ArrayList<>();
     /**
      * Creates new form sale
      */
@@ -79,14 +81,14 @@ public class sale extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Producto", "Precio"
+                "Producto", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,8 +109,7 @@ public class sale extends javax.swing.JPanel {
         });
         scrollTable.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setMaxWidth(64);
-            table.getColumnModel().getColumn(2).setMaxWidth(512);
+            table.getColumnModel().getColumn(1).setMaxWidth(512);
         }
 
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -212,6 +213,7 @@ public class sale extends javax.swing.JPanel {
     }//GEN-LAST:event_tableFocusGained
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        idProducts.remove(table.getSelectedRow());
         tableModel().removeRow(table.getSelectedRow());
         getTotal();
     }//GEN-LAST:event_removeActionPerformed
@@ -240,10 +242,12 @@ public class sale extends javax.swing.JPanel {
         String[] data = new String[3];
         
         while(query.next()){
-            data[0] = amount.getValue().toString();
-            data[1] = query.getString("description");
-            data[2] = query.getString("price");
-            tableModel().addRow(data);
+            data[0] = query.getString("description");
+            data[1] = query.getString("price");
+            for(int i = 0;i < Integer.parseInt(amount.getValue().toString());i++){
+                idProducts.add(query.getInt("id"));
+                tableModel().addRow(data);
+            }   
         }
         
         if(data[0] == null){
@@ -262,7 +266,7 @@ public class sale extends javax.swing.JPanel {
         totalVar = 0;
         
         for(int i = 0;i < table.getRowCount();i++){
-            totalVar += Integer.parseInt(table.getValueAt(i, 0).toString()) * Float.parseFloat(table.getValueAt(i, 2).toString());
+            totalVar += Float.parseFloat(table.getValueAt(i, 1).toString());
         }
         
         total.setText("$" + limit.format(totalVar));
@@ -274,7 +278,7 @@ public class sale extends javax.swing.JPanel {
     
     private void goLap(){
         if(table.getRowCount() > 0){
-            lap w = new lap(totalVar, tableModel());
+            lap w = new lap(totalVar, tableModel(), idProducts);
             menu.changeContent(w, "Cambio", null);
             w.received.requestFocusInWindow();
         }

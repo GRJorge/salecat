@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 import salecat.global;
 import database.saleDB;
@@ -19,17 +20,21 @@ import database.saleDB;
 public class lap extends javax.swing.JPanel {
     
     float totalVar;
+    ArrayList<Integer> idProducts = new ArrayList<>();
     DefaultTableModel model;
     sale sale = new sale();
     
     /**
      * Creates new form lap
      */
-    public lap(float total, DefaultTableModel model) {
+    public lap(float total, DefaultTableModel model, ArrayList<Integer> idProducts) {
         initComponents();
         totalVar = total;
+        this.idProducts = idProducts;
         this.model = model;
         this.total.setText("$" + total);
+        
+        System.out.println(this.idProducts);
         
         ((JSpinner.DefaultEditor)received.getEditor()).getTextField().addKeyListener(new KeyListener(){
             @Override
@@ -166,6 +171,7 @@ public class lap extends javax.swing.JPanel {
         sale.table.setModel(model);
         sale.total.setText(total.getText());
         sale.totalVar = this.totalVar;
+        sale.idProducts = this.idProducts;
         menu.changeContent(sale, "Punto de venta", sale.code);
     }//GEN-LAST:event_cancelActionPerformed
 
