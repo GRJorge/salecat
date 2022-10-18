@@ -1,5 +1,6 @@
 package views;
 
+import database.productDB;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JSpinner;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 import salecat.global;
 import database.saleDB;
+import database.productSaleDB;
 
 /**
  *
@@ -178,6 +180,10 @@ public class lap extends javax.swing.JPanel {
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         try {
             saleDB.add(totalVar);
+            for(int i = 0;i < idProducts.size();i++){
+                productSaleDB.add(idProducts.get(i));
+                productDB.restAmount(idProducts.get(i));
+            }
             menu.changeContent(sale, "Punto de venta", sale.code);
             System.out.println("Aqui imprime ticket");
         } catch (SQLException ex) {

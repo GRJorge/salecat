@@ -46,4 +46,9 @@ public class productDB {
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT * FROM product WHERE id=" + id);
     }
+    
+    public static void restAmount(int id) throws SQLException{
+        stmt = con.createStatement();
+        stmt.executeUpdate("UPDATE product SET amount = amount - 1 WHERE id=" + id);
+    }
 }

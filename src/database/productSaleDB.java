@@ -5,18 +5,16 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import salecat.global;
-
 /**
  *
  * @author axdevil
  */
-public class saleDB {
+public class productSaleDB {
     static Connection con = connectionDB.connection();
     static Statement stmt;
     
-    public static void add(float total) throws SQLException{
+    public static void add(int idProduct) throws SQLException{
         stmt = con.createStatement();
-        stmt.executeUpdate("INSERT INTO sale VALUES(NULL, DEFAULT," + total + "," + global.getActualUser() + ")");
+        stmt.executeUpdate("INSERT INTO productSale VALUES(NULL," + idProduct + ",(SELECT MAX(id) FROM sale))");
     }
 }

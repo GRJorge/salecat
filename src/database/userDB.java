@@ -13,6 +13,11 @@ public class userDB {
     static Connection con = connectionDB.connection();
     static Statement stmt;
     
+    public static void add(String name, String password) throws SQLException{
+        stmt = con.createStatement();
+        stmt.executeUpdate("INSERT INTO user VALUES(NULL,'" + name + "','" + password + "')");
+    }
+    
     public static ResultSet getName() throws SQLException{
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT name FROM user");

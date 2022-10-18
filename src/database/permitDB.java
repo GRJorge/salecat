@@ -5,18 +5,16 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import salecat.global;
-
 /**
  *
  * @author axdevil
  */
-public class saleDB {
+public class permitDB {
     static Connection con = connectionDB.connection();
     static Statement stmt;
     
-    public static void add(float total) throws SQLException{
+    public static void add(boolean product, boolean sale, boolean inventory, boolean provider, int user) throws SQLException{
         stmt = con.createStatement();
-        stmt.executeUpdate("INSERT INTO sale VALUES(NULL, DEFAULT," + total + "," + global.getActualUser() + ")");
+        stmt.executeUpdate("INSERT INTO permit VALUES(NULL," + product + "," + sale + "," + inventory + "," + provider + "," + user + ")");
     }
 }
