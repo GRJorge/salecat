@@ -261,7 +261,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_inventoryMousePressed
 
     private void settingsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMousePressed
-        changeContent(new settings(), "Configuración", null);
+        changeContent(new settings(this), "Configuración", null);
     }//GEN-LAST:event_settingsMousePressed
 
     private void saleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saleMousePressed

@@ -28,6 +28,11 @@ public class userDB {
         return stmt.executeQuery("SELECT name FROM user WHERE id=" + id);
     }
     
+    public static ResultSet getByName(String name) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT name FROM user WHERE name='" + name + "'");
+    }
+    
     public static ResultSet validatePassword(String name, String password) throws SQLException{
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT * FROM user WHERE name='" + name + "' AND password='" + password + "'");
@@ -36,5 +41,9 @@ public class userDB {
     public static ResultSet getId(String user) throws SQLException{
         stmt = con.createStatement();
         return stmt.executeQuery("SELECT id FROM user WHERE name='" + user + "'");
+    }
+    public static ResultSet getMaxId() throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT MAX(id) AS id FROM user");
     }
 }

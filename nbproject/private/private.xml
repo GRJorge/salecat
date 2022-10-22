@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/axdevil/Documentos/Git/salecat/src/views/createAdmin.java</file>
-            <file>file:/home/axdevil/Documentos/Git/salecat/src/database/productDB.java</file>
-            <file>file:/home/axdevil/Documentos/Git/salecat/src/views/lap.java</file>
-            <file>file:/home/axdevil/Documentos/Git/salecat/src/salecat/main.java</file>
-            <file>file:/home/axdevil/Documentos/Git/salecat/src/database/userDB.java</file>
+            <file>file:/home/axdevil/Documentos/Git/salecat/src/views/menu.java</file>
+            <file>file:/home/axdevil/Documentos/Git/salecat/src/views/newProduct.java</file>
             <file>file:/home/axdevil/Documentos/Git/salecat/src/views/createUser.java</file>
+            <file>file:/home/axdevil/Documentos/Git/salecat/src/views/settings.java</file>
         </group>
     </open-files>
 </project-private>

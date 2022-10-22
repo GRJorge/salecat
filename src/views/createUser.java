@@ -1,16 +1,30 @@
 package views;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import java.sql.ResultSet;
+
+import salecat.global;
+import database.permitDB;
+import database.userDB;
 /**
  *
  * @author axdevil
  */
-public class createUser extends javax.swing.JFrame {
+public class createUser extends javax.swing.JPanel {
 
+    JFrame menuW;
+    
     /**
-     * Creates new form createUser
+     * Creates new form create
      */
-    public createUser() {
+    public createUser(JFrame menu) {
         initComponents();
+        
+        this.menuW = menu;
     }
 
     /**
@@ -22,10 +36,6 @@ public class createUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        title = new javax.swing.JLabel();
-        nameTitle = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
-        passwordTitle = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         confirmPasswordTitle = new javax.swing.JLabel();
         confirmPassword = new javax.swing.JPasswordField();
@@ -35,25 +45,11 @@ public class createUser extends javax.swing.JFrame {
         inventory = new javax.swing.JCheckBox();
         provider = new javax.swing.JCheckBox();
         save = new javax.swing.JButton();
+        title = new javax.swing.JLabel();
+        nameTitle = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
         cancel = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(461, 326));
-        setPreferredSize(new java.awt.Dimension(461, 350));
-
-        title.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Nuevo usuario");
-
-        nameTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        nameTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nameTitle.setText("Nombre:");
-
-        name.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-
-        passwordTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        passwordTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        passwordTitle.setText("Contraseña:");
+        passwordTitle = new javax.swing.JLabel();
 
         password.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
@@ -83,18 +79,42 @@ public class createUser extends javax.swing.JFrame {
         save.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         save.setForeground(new java.awt.Color(255, 255, 255));
         save.setText("Guardar");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+
+        title.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Nuevo usuario");
+
+        nameTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nameTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nameTitle.setText("Nombre:");
+
+        name.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        passwordTitle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        passwordTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        passwordTitle.setText("Contraseña:");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(titlePermit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
@@ -121,12 +141,12 @@ public class createUser extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(provider, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(title)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -154,45 +174,80 @@ public class createUser extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel)
                     .addComponent(save))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        global.validation(nameTitle, false);
+        global.validation(passwordTitle, false);
+        global.validation(confirmPasswordTitle, false);
+        
+        if(name.getText().length() == 0){
+            global.validation(nameTitle, true);
+        }else if(password.getPassword().length == 0){
+            global.validation(passwordTitle, true);
+        }else if(confirmPassword.getPassword().length == 0){
+            global.validation(confirmPasswordTitle, true);
+        }else if(!String.valueOf(confirmPassword.getPassword()).equals(String.valueOf(password.getPassword()))){
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden","Advertencia",1);
+        }else{
+            try {
+                boolean exist = false;
+                ResultSet query = userDB.getByName(name.getText());
+                while(query.next()){
+                    exist = true;
                 }
+                if(!exist){
+                    userDB.add(name.getText(), String.valueOf(password.getPassword()));
+                    
+                    boolean[] permits = new boolean[4];
+                    
+                    if(product.getSelectedObjects() != null){
+                        permits[0] = true;
+                    }else{
+                        permits[0] = false;
+                    }
+                    if(sale.getSelectedObjects() != null){
+                        permits[1] = true;
+                    }else{
+                        permits[1] = false;
+                    }
+                    if(inventory.getSelectedObjects() != null){
+                        permits[2] = true;
+                    }else{
+                        permits[2] = false;
+                    }
+                    if(provider.getSelectedObjects() != null){
+                        permits[3] = true;
+                    }else{
+                        permits[3] = false;
+                    }
+                    
+                    int maxId = 1;
+                    ResultSet id = userDB.getMaxId();
+                    id.next();
+                    maxId = id.getInt("id");
+                    
+                    permitDB.add(permits[0], permits[1], permits[2], permits[3], maxId);
+                    
+                    returnSettings();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre","Aviso",1);
+                    global.validation(nameTitle, true);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(createUser.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(createUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(createUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(createUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(createUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_saveActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new createUser().setVisible(true);
-            }
-        });
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        returnSettings();
+    }//GEN-LAST:event_cancelActionPerformed
+    
+    private void returnSettings(){
+        menu.changeContent(new settings(menuW), "Configuración", null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -200,7 +255,7 @@ public class createUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField confirmPassword;
     private javax.swing.JLabel confirmPasswordTitle;
     private javax.swing.JCheckBox inventory;
-    private javax.swing.JTextField name;
+    public static javax.swing.JTextField name;
     private javax.swing.JLabel nameTitle;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel passwordTitle;

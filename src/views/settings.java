@@ -6,6 +6,7 @@ import database.userDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 import salecat.global;
 /**
@@ -14,11 +15,15 @@ import salecat.global;
  */
 public class settings extends javax.swing.JPanel{
 
+    
+    JFrame menuW;
     /**
      * Creates new form settings
      */
-    public settings() {
+    public settings(JFrame menu) {
         initComponents();
+        
+        this.menuW = menu;
         
         try {
             ResultSet userName = userDB.getNameById(global.getActualUser());
@@ -27,6 +32,9 @@ public class settings extends javax.swing.JPanel{
             }
         } catch (SQLException ex) {
             Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(global.getActualUser() != 1){
+            createUser.setVisible(false);
         }
     }
     
@@ -66,6 +74,11 @@ public class settings extends javax.swing.JPanel{
 
         createUser.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         createUser.setText("Crear nuevo usuario");
+        createUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,8 +120,13 @@ public class settings extends javax.swing.JPanel{
 
     private void signOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOffActionPerformed
         global.showJFrame(new login(), "Iniciar sesión");
-        
+        menuW.setVisible(false);
     }//GEN-LAST:event_signOffActionPerformed
+
+    private void createUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserActionPerformed
+        createUser w = new createUser(menuW);
+        menu.changeContent(w, "", w.name);
+    }//GEN-LAST:event_createUserActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
