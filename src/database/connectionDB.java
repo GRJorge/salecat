@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 public class connectionDB {
     public static String bd = "salecat";
     public static String user = "root";
-    public static String pass = "";
-    public static String url = "jdbc:mysql://localhost:3305/";
+    public static String pass = "STANlee31";
+    public static String url = "jdbc:mysql://localhost:3306/";
     public static Connection con;
     
     public static Connection connection(){
@@ -21,7 +21,7 @@ public class connectionDB {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url+bd,user,pass);
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se ha podido conectar con la base de datos\n" + ex, "Error BD", 0);
+            JOptionPane.showMessageDialog(null, "No se ha podido conectar con la base de datos\n" + ex + "\n" + bd + "|" + user + "|" + pass + "|" + url, "Error BD", 0);
         }
         return con;
     }
