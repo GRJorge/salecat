@@ -197,7 +197,8 @@ public class sale extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
-        if(evt.getKeyCode() == 10){
+        System.out.println(evt.getKeyCode());
+        if(evt.getKeyCode() == 10 || evt.getKeyCode() == 40){
             try {
                 addProduct(productDB.getByCode(code.getText()));
             } catch (SQLException ex) {

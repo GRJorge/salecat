@@ -17,4 +17,8 @@ public class permitDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO permit VALUES(NULL," + product + "," + sale + "," + inventory + "," + provider + "," + user + ")");
     }
+    public static ResultSet get(int id) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT product, sale, inventory, provider FROM permit WHERE userFK=" + id);
+    }
 }

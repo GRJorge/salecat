@@ -2,6 +2,13 @@ package views;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.sql.ResultSet;
+
+import database.permitDB;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import salecat.global;
 
 /**
  *
@@ -15,6 +22,27 @@ public class menu extends javax.swing.JFrame {
         initComponents();
         sale w = new sale();
         changeContent(w, "Punto de venta", w.code);
+        
+        try {
+            ResultSet query = permitDB.get(global.getActualUser());
+            
+            while(query.next()){
+                if(query.getBoolean("product") == false){
+                    newProduct.setVisible(false);
+                }
+                if(query.getBoolean("sale") == false){
+                    sales.setVisible(false);
+                }
+                if(query.getBoolean("inventory") == false){
+                    inventory.setVisible(false);
+                }
+                if(query.getBoolean("provider") == false){
+                    provider.setVisible(false);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -27,8 +55,8 @@ public class menu extends javax.swing.JFrame {
         provider = new javax.swing.JLabel();
         settings = new javax.swing.JLabel();
         sale = new javax.swing.JLabel();
+        sales = new javax.swing.JLabel();
         icon = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         visibleBtn = new javax.swing.JPanel();
         iconVisibleBtn = new javax.swing.JLabel();
@@ -81,6 +109,7 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        settings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         settings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/settings.png"))); // NOI18N
         settings.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         settings.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -101,10 +130,19 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        sales.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        sales.setForeground(new java.awt.Color(255, 255, 255));
+        sales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sales.png"))); // NOI18N
+        sales.setText("  Ventas");
+        sales.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                salesMousePressed(evt);
+            }
+        });
+
         icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon100x.png"))); // NOI18N
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -112,24 +150,22 @@ public class menu extends javax.swing.JFrame {
         barMenu.setLayout(barMenuLayout);
         barMenuLayout.setHorizontalGroup(
             barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(barMenuLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(newProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(barMenuLayout.createSequentialGroup()
+                        .addGroup(barMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addComponent(sales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addComponent(newProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                     .addComponent(inventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(provider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(barMenuLayout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
-                .addComponent(settings)
-                .addGap(0, 68, Short.MAX_VALUE))
-            .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(barMenuLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(barMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(settings, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         barMenuLayout.setVerticalGroup(
@@ -147,8 +183,8 @@ public class menu extends javax.swing.JFrame {
                 .addComponent(newProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(provider)
-                .addGap(81, 81, 81)
-                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sales)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(settings)
                 .addGap(16, 16, 16))
@@ -269,6 +305,10 @@ public class menu extends javax.swing.JFrame {
         
         changeContent(w,"Punto de venta", w.code);
     }//GEN-LAST:event_saleMousePressed
+
+    private void salesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesMousePressed
+        changeContent(new sales(),"Ventas",null);
+    }//GEN-LAST:event_salesMousePressed
     
     public static void changeContent(JPanel newContent, String title,JTextField focus){
         titleContent.setText(title);
@@ -334,11 +374,11 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel icon;
     private javax.swing.JLabel iconVisibleBtn;
     private javax.swing.JLabel inventory;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel newProduct;
     private javax.swing.JLabel provider;
     private javax.swing.JLabel sale;
+    private javax.swing.JLabel sales;
     private javax.swing.JLabel settings;
     public static javax.swing.JLabel titleContent;
     private javax.swing.JPanel visibleBtn;
