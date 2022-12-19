@@ -17,4 +17,8 @@ public class productSaleDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO productSale VALUES(NULL," + idProduct + ",(SELECT MAX(id) FROM sale))");
     }
+    public static ResultSet getProducts(int sale) throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT code,description,price FROM product INNER JOIN productSale WHERE product.id = productSale.productFK AND productSale.saleFK = " + sale);
+    }
 }

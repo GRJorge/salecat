@@ -19,4 +19,8 @@ public class saleDB {
         stmt = con.createStatement();
         stmt.executeUpdate("INSERT INTO sale VALUES(NULL, DEFAULT," + total + "," + global.getActualUser() + ")");
     }
+    public static ResultSet getAll() throws SQLException{
+        stmt = con.createStatement();
+        return stmt.executeQuery("SELECT id,CONCAT(DAY(date),'/',MONTH(date),'/',YEAR(date)) AS date,total,userFK FROM sale");
+    }
 }

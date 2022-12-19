@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/jorge/Documentos/Git/salecat/src/database/permitDB.java</file>
+            <file>file:/home/jorge/Documentos/Git/salecat/src/views/sales.java</file>
+            <file>file:/home/jorge/Documentos/Git/salecat/src/views/menu.java</file>
             <file>file:/home/jorge/Documentos/Git/salecat/src/database/connectionDB.java</file>
+            <file>file:/home/jorge/Documentos/Git/salecat/src/views/sale.java</file>
         </group>
     </open-files>
 </project-private>
