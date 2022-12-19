@@ -160,6 +160,7 @@ public class sales extends javax.swing.JPanel {
             model.addRow(data);
         }
         products.setModel(model);
+        System.out.println("test");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
