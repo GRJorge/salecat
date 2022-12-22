@@ -81,22 +81,15 @@ public class sale extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Producto", "Precio"
+                "Cantidad", "Producto", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         table.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -109,7 +102,8 @@ public class sale extends javax.swing.JPanel {
         });
         scrollTable.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(1).setMaxWidth(512);
+            table.getColumnModel().getColumn(0).setMaxWidth(128);
+            table.getColumnModel().getColumn(2).setMaxWidth(512);
         }
 
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
