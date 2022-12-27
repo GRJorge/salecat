@@ -36,8 +36,6 @@ public class lap extends javax.swing.JPanel {
         this.model = model;
         this.total.setText("$" + total);
         
-        System.out.println(this.idProducts);
-        
         ((JSpinner.DefaultEditor)received.getEditor()).getTextField().addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e) {}
@@ -181,7 +179,7 @@ public class lap extends javax.swing.JPanel {
         try {
             saleDB.add(totalVar);
             for(int i = 0;i < idProducts.size();i++){
-                productSaleDB.add(idProducts.get(i));
+                productSaleDB.add(idProducts.get(i),Float.parseFloat(model.getValueAt(i, 1).toString()));
                 productDB.restAmount(idProducts.get(i));
             }
             menu.changeContent(sale, "Punto de venta", sale.code);

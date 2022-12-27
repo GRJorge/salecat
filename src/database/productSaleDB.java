@@ -13,9 +13,9 @@ public class productSaleDB {
     static Connection con = connectionDB.connection();
     static Statement stmt;
     
-    public static void add(int idProduct) throws SQLException{
+    public static void add(int idProduct, float price) throws SQLException{
         stmt = con.createStatement();
-        stmt.executeUpdate("INSERT INTO productSale VALUES(NULL," + idProduct + ",(SELECT MAX(id) FROM sale))");
+        stmt.executeUpdate("INSERT INTO productSale VALUES(NULL," + idProduct + ",(SELECT MAX(id) FROM sale)," + price + ")");
     }
     public static ResultSet getProducts(int sale) throws SQLException{
         stmt = con.createStatement();

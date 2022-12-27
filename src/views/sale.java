@@ -81,15 +81,22 @@ public class sale extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cantidad", "Producto", "Precio"
+                "Producto", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         table.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -102,8 +109,7 @@ public class sale extends javax.swing.JPanel {
         });
         scrollTable.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setMaxWidth(128);
-            table.getColumnModel().getColumn(2).setMaxWidth(512);
+            table.getColumnModel().getColumn(1).setMaxWidth(512);
         }
 
         cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -191,7 +197,6 @@ public class sale extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void codeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeKeyPressed
-        System.out.println(evt.getKeyCode());
         if(evt.getKeyCode() == 10 || evt.getKeyCode() == 40){
             try {
                 addProduct(productDB.getByCode(code.getText()));
@@ -234,7 +239,7 @@ public class sale extends javax.swing.JPanel {
     }//GEN-LAST:event_tableFocusLost
 
     private void addProduct(ResultSet query) throws SQLException{
-        String[] data = new String[3];
+        String[] data = new String[2];
         
         while(query.next()){
             data[0] = query.getString("description");
