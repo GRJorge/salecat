@@ -35,6 +35,7 @@ public class lap extends javax.swing.JPanel {
         this.idProducts = idProducts;
         this.model = model;
         this.total.setText("$" + total);
+        received.setValue(total);
         
         ((JSpinner.DefaultEditor)received.getEditor()).getTextField().addKeyListener(new KeyListener(){
             @Override

@@ -107,6 +107,11 @@ public class sale extends javax.swing.JPanel {
                 tableFocusLost(evt);
             }
         });
+        table.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tablePropertyChange(evt);
+            }
+        });
         scrollTable.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(1).setMaxWidth(512);
@@ -237,6 +242,12 @@ public class sale extends javax.swing.JPanel {
     private void tableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableFocusLost
         remove.setVisible(false);
     }//GEN-LAST:event_tableFocusLost
+
+    private void tablePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tablePropertyChange
+        if("tableCellEditor".equals(evt.getPropertyName())){
+            getTotal();
+        }
+    }//GEN-LAST:event_tablePropertyChange
 
     private void addProduct(ResultSet query) throws SQLException{
         String[] data = new String[2];

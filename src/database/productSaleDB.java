@@ -19,6 +19,6 @@ public class productSaleDB {
     }
     public static ResultSet getProducts(int sale) throws SQLException{
         stmt = con.createStatement();
-        return stmt.executeQuery("SELECT code,description,price FROM product INNER JOIN productSale WHERE product.id = productSale.productFK AND productSale.saleFK = " + sale);
+        return stmt.executeQuery("SELECT code,description,productSale.price FROM product INNER JOIN productSale WHERE product.id = productSale.productFK AND productSale.saleFK = " + sale);
     }
 }
